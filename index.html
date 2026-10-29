@@ -1,11 +1,12 @@
-<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Link</title><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20505.736%20505.736%22%3E%3Cstyle%3Epath%7Bfill:%23111%7D%40media(prefers-color-scheme:dark)%7Bpath%7Bfill:%23eee%7D%7D%3C/style%3E%3Cpath%20d=%22M396.007,191.19c-0.478,0-1.075,0-1.554,0c-6.693-54.147-52.833-96.103-108.773-96.103c-48.171,0-89.051,31.078-103.753,74.349c-16.734-8.128-35.381-12.67-55.224-12.67C56.658,156.765,0,213.542,0,283.707c0,67.416,52.594,122.64,118.934,126.703v0.239h277.91c60.244-0.358,108.893-49.366,108.893-109.729C505.617,240.317,456.609,191.19,396.007,191.19z%22/%3E%3C/svg%3E">
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>link</title><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20505.736%20505.736%22%3E%3Cstyle%3Epath%7Bfill:%23111%7D%40media(prefers-color-scheme:dark)%7Bpath%7Bfill:%23eee%7D%7D%3C/style%3E%3Cpath%20d=%22M396.007,191.19c-0.478,0-1.075,0-1.554,0c-6.693-54.147-52.833-96.103-108.773-96.103c-48.171,0-89.051,31.078-103.753,74.349c-16.734-8.128-35.381-12.67-55.224-12.67C56.658,156.765,0,213.542,0,283.707c0,67.416,52.594,122.64,118.934,126.703v0.239h277.91c60.244-0.358,108.893-49.366,108.893-109.729C505.617,240.317,456.609,191.19,396.007,191.19z%22/%3E%3C/svg%3E">
+<meta name="theme-color" content="#000"><meta name="color-scheme" content="dark">
 <style>
-html,body{margin:0;height:100%;background:#fff;color:#888}
-body{font:15px system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
-input{padding:12px 20px;font:inherit;border:1px solid #ddd;border-radius:999px;outline:none;text-align:center;color:#222;background:#fff}
-@media (prefers-color-scheme:dark){html,body{background:#111}input{background:#1a1a1a;color:#eee;border-color:#333}}
+html,body{margin:0;height:100%;background:#000;color:#444}
+body{font:15px system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+input{width:min(320px,80vw);box-sizing:border-box;padding:13px 22px;font:inherit;border:1px solid #222;border-radius:999px;outline:none;text-align:center;color:#ddd;background:#000;caret-color:#888}
+input::placeholder{color:#555}input:focus{border-color:#444}
 </style>
-<div id="s">connecting</div><input id="ki" type="password" placeholder="Access key" style="display:none">
+<div id="s">connecting</div><input id="ki" type="password" placeholder="access key" style="display:none">
 <script>
 var O="fordpepper",R="webproxy",tries=0,h=location.hash.slice(1),i=h.indexOf("|"),key=i<0?h:h.slice(0,i),ret=i<0?"":decodeURIComponent(h.slice(i+1));
 try{if(key)sessionStorage.setItem("wpk",key);else key=sessionStorage.getItem("wpk")||""}catch(e){}
