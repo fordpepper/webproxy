@@ -8,7 +8,7 @@ try{if(key)sessionStorage.setItem("wpk",key);else key=sessionStorage.getItem("wp
 if(location.hash)history.replaceState(null,"",location.pathname);
 function say(t){document.getElementById("s").textContent=t}
 async function info(){var r=await fetch("https://api.github.com/repos/"+O+"/"+R+"/contents/url.json",{headers:{Accept:"application/vnd.github.raw+json"},cache:"no-store"});if(!r.ok)throw new Error("x");return r.json()}
-async function alive(u){try{var r=await fetch(u+"/_/ping",{cache:"no-store"});return (await r.text())==="ok"}catch(e){return false}}
+async function alive(u){try{var r=await fetch(u+"/__wp/ping",{cache:"no-store"});return (await r.text())==="ok"}catch(e){return false}}
 async function tick(){
  try{var j=await info();
   if(!key&&!j.open){say("Enter the access key");document.getElementById("k").style.display="block";return}
