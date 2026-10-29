@@ -1,21 +1,26 @@
-<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Link</title>
-<style>body{font:16px system-ui,sans-serif;max-width:480px;margin:18vh auto;padding:0 16px}input{width:100%;box-sizing:border-box;padding:10px;font-size:16px;margin:6px 0}button{padding:10px 18px;font-size:16px}</style>
-<h3 id="s">Looking for the host ...</h3>
-<div id="k" style="display:none"><input id="ki" type="password" placeholder="Access key"><button id="kb">Go</button></div>
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Link</title><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20505.736%20505.736%22%3E%3Cstyle%3Epath%7Bfill:%23111%7D%40media(prefers-color-scheme:dark)%7Bpath%7Bfill:%23eee%7D%7D%3C/style%3E%3Cpath%20d=%22M396.007,191.19c-0.478,0-1.075,0-1.554,0c-6.693-54.147-52.833-96.103-108.773-96.103c-48.171,0-89.051,31.078-103.753,74.349c-16.734-8.128-35.381-12.67-55.224-12.67C56.658,156.765,0,213.542,0,283.707c0,67.416,52.594,122.64,118.934,126.703v0.239h277.91c60.244-0.358,108.893-49.366,108.893-109.729C505.617,240.317,456.609,191.19,396.007,191.19z%22/%3E%3C/svg%3E">
+<style>
+html,body{margin:0;height:100%;background:#fff;color:#888}
+body{font:15px system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+input{padding:12px 20px;font:inherit;border:1px solid #ddd;border-radius:999px;outline:none;text-align:center;color:#222;background:#fff}
+@media (prefers-color-scheme:dark){html,body{background:#111}input{background:#1a1a1a;color:#eee;border-color:#333}}
+</style>
+<div id="s">connecting</div><input id="ki" type="password" placeholder="Access key" style="display:none">
 <script>
-var O="fordpepper",R="webproxy",tries=0,key=location.hash.slice(1);
+var O="fordpepper",R="webproxy",tries=0,h=location.hash.slice(1),i=h.indexOf("|"),key=i<0?h:h.slice(0,i),ret=i<0?"":decodeURIComponent(h.slice(i+1));
 try{if(key)sessionStorage.setItem("wpk",key);else key=sessionStorage.getItem("wpk")||""}catch(e){}
 if(location.hash)history.replaceState(null,"",location.pathname);
-function say(t){document.getElementById("s").textContent=t}
-async function info(){var r=await fetch("https://api.github.com/repos/"+O+"/"+R+"/contents/url.json",{headers:{Accept:"application/vnd.github.raw+json"},cache:"no-store"});if(!r.ok)throw new Error("x");return r.json()}
+var s=document.getElementById("s"),ki=document.getElementById("ki");
+async function file(){try{var r=await fetch("url.json?"+Date.now(),{cache:"no-store"});if(r.ok)return await r.json()}catch(e){}return null}
+async function api(){try{var r=await fetch("https://api.github.com/repos/"+O+"/"+R+"/contents/url.json",{headers:{Accept:"application/vnd.github.raw+json"},cache:"no-store"});if(r.ok)return await r.json()}catch(e){}return null}
 async function alive(u){try{var r=await fetch(u+"/__wp/ping",{cache:"no-store"});return (await r.text())==="ok"}catch(e){return false}}
 async function tick(){
- try{var j=await info();
-  if(!key&&!j.open){say("Enter the access key");document.getElementById("k").style.display="block";return}
-  if(j.url&&await alive(j.url)){say("Connecting ...");location.replace(j.url+"/?k="+encodeURIComponent(key));return}
-  say("The host is offline or restarting. Retrying ...")
- }catch(e){say("Cannot read the link info. Retrying ...")}
- tries++;setTimeout(tick,Math.min(60000,8000+tries*4000))}
-document.getElementById("kb").onclick=function(){key=document.getElementById("ki").value.trim();try{sessionStorage.setItem("wpk",key)}catch(e){}document.getElementById("k").style.display="none";tries=0;tick()};
+ var j=await file(),ok=j&&j.url&&await alive(j.url);
+ if(!ok){j=await api();ok=j&&j.url&&await alive(j.url)}
+ if(ok){
+  if(!key&&!j.open){s.textContent="";ki.style.display="";ki.focus();return}
+  location.replace(j.url+"/?k="+encodeURIComponent(key)+(ret?"&r="+encodeURIComponent(ret):""));return}
+ s.textContent="waiting for the host";tries++;setTimeout(tick,Math.min(30000,3000+tries*2000))}
+ki.onkeydown=function(e){if(e.key==="Enter"&&ki.value.trim()){key=ki.value.trim();try{sessionStorage.setItem("wpk",key)}catch(x){}ki.style.display="none";s.textContent="connecting";tries=0;tick()}};
 tick();
 </script>
